@@ -1,0 +1,27 @@
+{
+  "app_store_information": {
+    "app_name": "PawPlan: Dog Care & Routine",
+    "subtitle": "Sydney Dog Care & Routines",
+    "bundle_id": "com.vicky.PawPlan",
+    "primary_category": "Lifestyle",
+    "secondary_category": "Productivity",
+    "content_rating": "4+",
+    "price_tier": "Free",
+    "target_platform": "iOS 17.0+"
+  },
+  "metadata": {
+    "promotional_text": "Make dog ownership simpler, safer, and organized. Built for first-time dog parents in Sydney, Australia.",
+    "keywords": "dog care,puppy training,sydney dog parks,pet schedule,vet reminder,dog beach,puppy routine,pawplan",
+    "description": "PawPlan is the companion app built specifically for first-time dog parents in Sydney, Australia.\n\nFrom keeping track of vaccinations and vet appointments to discovering off-leash dog beaches in Rose Bay and Sirius Cove, PawPlan brings clarity and calm to dog care.\n\nKEY FEATURES:\n\n• TODAY DASHBOARD: Your dog's daily care at a glance. Track walks, meals, medications, and hydration scores with one tap.\n\n• SMART SCHEDULE & RECURRENCE: Set up recurring routines (daily, weekdays, weekends) with automated rescheduling and push reminders.\n\n• HEALTH & MEDICAL HUB: Track weight history, log vaccinations, record vet appointments, and store important health milestones.\n\n• SYDNEY DOG PLACES: Curated directory of Sydney's best off-leash dog beaches, fenced parks, dog-friendly cafes, and 24/7 emergency veterinary hospitals (SASH, UVTHS, ARH) with instant one-tap calling and navigation.\n\n• PUPPY ACADEMY: A structured 12-week development guide covering essential puppy milestones, socialization windows, and foundation commands.\n\n• EXPENSE TRACKER & BUDGETING: Keep pet expenses organized across food, vet care, grooming, and gear. Set monthly budgets and export itemized CSV reports.\n\n• DOCUMENT VAULT: Securely store digital records of microchip registration, NSW Pet Registry IDs, desexing certificates, and pet insurance policies.\n\n• NSW PET REGULATIONS: Essential NSW Companion Animals Act guidance, council registration deadlines, and leash laws at your fingertips.\n\n• MULTI-DOG SUPPORT: Seamlessly switch profiles to manage multiple furry family members.\n\n• 100% PRIVATE & ON-DEVICE: Your data stays on your device with Apple Core Data. Zero tracking, zero third-party ads.\n\nHappy paws. Every day.",
+    "support_url": "https://pawplan.app/support",
+    "marketing_url": "https://pawplan.app",
+    "privacy_policy_url": "https://pawplan.app/privacy"
+  },
+  "app_review_information": {
+    "contact_first_name": "Vicky",
+    "contact_last_name": "Neves Rohr",
+    "contact_phone": "+61 400 000 000",
+    "contact_email": "vicky@pawplan.app",
+    "demo_account_notes": "No login credentials required. The app includes pre-seeded demonstration dog profiles (Archie and Bella) showcasing all features immediately upon launch."
+  }
+}
