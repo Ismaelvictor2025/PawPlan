@@ -1,9 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DogEntity" representedClassName="DogEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="birthDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="careNotes" optional="YES" attributeType="String"/>
+        <attribute name="councilRegistration" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isDesexed" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="microchipNumber" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="NO" attributeType="String"/>
+        <attribute name="photoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="breed" optional="NO" attributeType="String"/>
+        <attribute name="sex" optional="NO" attributeType="String"/>
+        <attribute name="suburb" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="documents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DocumentRecordEntity" inverseName="dog" inverseEntity="DocumentRecordEntity"/>
+        <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExpenseEntity" inverseName="dog" inverseEntity="ExpenseEntity"/>
+        <relationship name="healthRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HealthRecordEntity" inverseName="dog" inverseEntity="HealthRecordEntity"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CareTaskEntity" inverseName="dog" inverseEntity="CareTaskEntity"/>
+        <relationship name="trainingProgress" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrainingProgressEntity" inverseName="dog" inverseEntity="TrainingProgressEntity"/>
+        <relationship name="vetAppointments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="VetAppointmentEntity" inverseName="dog" inverseEntity="VetAppointmentEntity"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="CareTaskEntity" representedClassName="CareTaskEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="durationMinutes" optional="NO" attributeType="Integer 32" defaultValueString="15" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="intervalDays" optional="NO" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="NO" attributeType="String" defaultValueString="normal"/>
+        <attribute name="recurrenceRule" optional="NO" attributeType="String" defaultValueString="daily"/>
+        <attribute name="reminderEnabled" optional="NO" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="scheduledDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <relationship name="completions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CareCompletionEntity" inverseName="task" inverseEntity="CareCompletionEntity"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="tasks" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="CareCompletionEntity" representedClassName="CareCompletionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="completedAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="completedBy" optional="YES" attributeType="String"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="taskId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareTaskEntity" inverseName="completions" inverseEntity="CareTaskEntity"/>
+    </entity>
+    <entity name="VetAppointmentEntity" representedClassName="VetAppointmentEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="clinicName" optional="NO" attributeType="String"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCompleted" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="reason" optional="NO" attributeType="String"/>
+        <attribute name="scheduledDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="vetName" optional="YES" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="vetAppointments" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="HealthRecordEntity" representedClassName="HealthRecordEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="batchNumber" optional="YES" attributeType="String"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="nextDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="recordDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="recordType" optional="NO" attributeType="String"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <attribute name="veterinarian" optional="YES" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="healthRecords" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="TrainingProgressEntity" representedClassName="TrainingProgressEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="completedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCompleted" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="milestoneKey" optional="NO" attributeType="String"/>
+        <attribute name="moduleKey" optional="NO" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="rating" optional="NO" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="trainingProgress" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="ExpenseEntity" representedClassName="ExpenseEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="currency" optional="NO" attributeType="String" defaultValueString="AUD"/>
+        <attribute name="date" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="merchant" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="expenses" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="DocumentRecordEntity" representedClassName="DocumentRecordEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="expiryDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fileExtension" optional="YES" attributeType="String"/>
+        <attribute name="fileName" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="documents" inverseEntity="DogEntity"/>
+    </entity>
 </model>

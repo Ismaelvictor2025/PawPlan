@@ -2,20 +2,22 @@
 //  PawPlanApp.swift
 //  PawPlan
 //
-//  Created by Vicky Neves Rohr on 8/10/2026.
+//  Created for PawPlan Clean Architecture.
 //
 
 import SwiftUI
-import CoreData
 
 @main
 struct PawPlanApp: App {
-    let persistenceController = PersistenceController.shared
+    @StateObject private var container = AppDependencyContainer.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, container.persistenceController.viewContext)
+                .task {
+                    _ = await container.notificationService.requestAuthorization()
+                }
         }
     }
 }
