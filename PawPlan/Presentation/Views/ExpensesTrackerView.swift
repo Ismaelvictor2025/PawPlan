@@ -171,7 +171,7 @@ private struct ExpenseBudgetBanner: View {
                         .frame(height: 8)
 
                     Capsule()
-                        .fill(summary.isOverBudget ? PawPlanTheme.vetHealth : PawPlanTheme.turquoiseGradient)
+                        .fill(summary.isOverBudget ? PawPlanTheme.pinkGradient : PawPlanTheme.turquoiseGradient)
                         .frame(width: min(geo.size.width, geo.size.width * CGFloat(summary.totalAmount / max(1.0, summary.monthlyBudgetGoal))), height: 8)
                 }
             }

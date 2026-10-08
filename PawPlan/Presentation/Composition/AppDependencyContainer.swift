@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import CoreData
+import Combine
 
 @MainActor
 public final class AppDependencyContainer: ObservableObject {
