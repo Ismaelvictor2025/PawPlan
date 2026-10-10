@@ -41,6 +41,16 @@ public struct MoreView: View {
                         VStack(spacing: 12) {
                             SectionHeader(title: "SPECIALISED PET CARE")
 
+                            NavigationLink(destination: CareCircleDashboardView(container: container)) {
+                                MoreFeatureRow(
+                                    title: "PawPlan Care Circle",
+                                    subtitle: "Sitter packet, sitting mode & live updates",
+                                    icon: "person.2.badge.gearshape.fill",
+                                    color: PawPlanTheme.electricTurquoise,
+                                    gradient: PawPlanTheme.turquoiseGradient
+                                )
+                            }
+
                             NavigationLink(destination: PuppyAcademyView(container: container)) {
                                 MoreFeatureRow(
                                     title: "Puppy Training Academy",

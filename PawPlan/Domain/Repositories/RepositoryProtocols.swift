@@ -49,3 +49,20 @@ public protocol DocumentRepositoryProtocol: Sendable {
     func saveDocument(_ document: DocumentRecord) throws
     func deleteDocument(id: UUID) throws
 }
+
+public protocol CareCircleRepositoryProtocol: Sendable {
+    func fetchProfile(for dogId: UUID) throws -> CareCircleProfile?
+    func saveProfile(_ profile: CareCircleProfile) throws
+    func deleteProfile(for dogId: UUID) throws
+}
+
+public protocol SittingSessionRepositoryProtocol: Sendable {
+    func fetchSessions(for dogId: UUID?) throws -> [SittingSession]
+    func fetchSession(id: UUID) throws -> SittingSession?
+    func saveSession(_ session: SittingSession) throws
+    func deleteSession(id: UUID) throws
+    func fetchActivities(for sessionId: UUID) throws -> [SittingActivityLog]
+    func recordActivity(_ activity: SittingActivityLog) throws
+    func deleteActivity(id: UUID) throws
+}
+

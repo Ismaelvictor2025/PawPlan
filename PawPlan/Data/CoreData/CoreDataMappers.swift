@@ -240,4 +240,157 @@ public enum CoreDataMappers {
         entity.createdAt = domain.createdAt
         entity.notes = domain.notes
     }
+
+    // MARK: - CareCircleProfile
+    public static func toDomain(entity: CareCircleProfileEntity) -> CareCircleProfile {
+        let allergies: [String] = {
+            guard let json = entity.allergiesJSON?.data(using: .utf8),
+                  let list = try? JSONDecoder().decode([String].self, from: json) else { return [] }
+            return list
+        }()
+        let medications: [CareCircleMedication] = {
+            guard let json = entity.medicationsJSON?.data(using: .utf8),
+                  let list = try? JSONDecoder().decode([CareCircleMedication].self, from: json) else { return [] }
+            return list
+        }()
+        let favoriteParks: [String] = {
+            guard let json = entity.favoriteParksJSON?.data(using: .utf8),
+                  let list = try? JSONDecoder().decode([String].self, from: json) else { return [] }
+            return list
+        }()
+        let triggers: [String] = {
+            guard let json = entity.triggersJSON?.data(using: .utf8),
+                  let list = try? JSONDecoder().decode([String].self, from: json) else { return [] }
+            return list
+        }()
+
+        return CareCircleProfile(
+            id: entity.id ?? UUID(),
+            dogId: entity.dogId ?? UUID(),
+            sitterName: entity.sitterName,
+            sitterContact: entity.sitterContact,
+            feedingSchedule: entity.feedingSchedule ?? "",
+            dietaryRestrictions: entity.dietaryRestrictions ?? "",
+            allergies: allergies,
+            treatGuidelines: entity.treatGuidelines ?? "",
+            medications: medications,
+            walkingRoutine: entity.walkingRoutine ?? "",
+            favoriteParks: favoriteParks,
+            leashGuidelines: entity.leashGuidelines ?? "",
+            groomingInstructions: entity.groomingInstructions ?? "",
+            bathingInstructions: entity.bathingInstructions ?? "",
+            behavioralNotes: entity.behavioralNotes ?? "",
+            triggers: triggers,
+            calmingTechniques: entity.calmingTechniques ?? "",
+            primaryContactName: entity.primaryContactName ?? "Owner",
+            primaryContactPhone: entity.primaryContactPhone ?? "",
+            secondaryContactName: entity.secondaryContactName,
+            secondaryContactPhone: entity.secondaryContactPhone,
+            vetClinicName: entity.vetClinicName ?? "",
+            vetDoctorName: entity.vetDoctorName,
+            vetPhone: entity.vetPhone ?? "",
+            vetAddress: entity.vetAddress ?? "",
+            emergency24hHospital: entity.emergency24hHospital ?? "",
+            homeAccessNotes: entity.homeAccessNotes,
+            sleepingArrangements: entity.sleepingArrangements ?? "",
+            specialCareNotes: entity.specialCareNotes,
+            updatedAt: entity.updatedAt ?? Date()
+        )
+    }
+
+    public static func update(entity: CareCircleProfileEntity, from domain: CareCircleProfile) {
+        entity.id = domain.id
+        entity.dogId = domain.dogId
+        entity.sitterName = domain.sitterName
+        entity.sitterContact = domain.sitterContact
+        entity.feedingSchedule = domain.feedingSchedule
+        entity.dietaryRestrictions = domain.dietaryRestrictions
+        entity.allergiesJSON = try? String(data: JSONEncoder().encode(domain.allergies), encoding: .utf8)
+        entity.treatGuidelines = domain.treatGuidelines
+        entity.medicationsJSON = try? String(data: JSONEncoder().encode(domain.medications), encoding: .utf8)
+        entity.walkingRoutine = domain.walkingRoutine
+        entity.favoriteParksJSON = try? String(data: JSONEncoder().encode(domain.favoriteParks), encoding: .utf8)
+        entity.leashGuidelines = domain.leashGuidelines
+        entity.groomingInstructions = domain.groomingInstructions
+        entity.bathingInstructions = domain.bathingInstructions
+        entity.behavioralNotes = domain.behavioralNotes
+        entity.triggersJSON = try? String(data: JSONEncoder().encode(domain.triggers), encoding: .utf8)
+        entity.calmingTechniques = domain.calmingTechniques
+        entity.primaryContactName = domain.primaryContactName
+        entity.primaryContactPhone = domain.primaryContactPhone
+        entity.secondaryContactName = domain.secondaryContactName
+        entity.secondaryContactPhone = domain.secondaryContactPhone
+        entity.vetClinicName = domain.vetClinicName
+        entity.vetDoctorName = domain.vetDoctorName
+        entity.vetPhone = domain.vetPhone
+        entity.vetAddress = domain.vetAddress
+        entity.emergency24hHospital = domain.emergency24hHospital
+        entity.homeAccessNotes = domain.homeAccessNotes
+        entity.sleepingArrangements = domain.sleepingArrangements
+        entity.specialCareNotes = domain.specialCareNotes
+        entity.updatedAt = domain.updatedAt
+    }
+
+    // MARK: - SittingSession
+    public static func toDomain(entity: SittingSessionEntity) -> SittingSession {
+        let status = SittingSessionStatus(rawValue: entity.status ?? "") ?? .scheduled
+        return SittingSession(
+            id: entity.id ?? UUID(),
+            dogId: entity.dogId ?? UUID(),
+            sitterName: entity.sitterName ?? "Sitter",
+            sitterPhone: entity.sitterPhone,
+            startDate: entity.startDate ?? Date(),
+            endDate: entity.endDate ?? Date().addingTimeInterval(86400),
+            status: status,
+            emergencyContact: entity.emergencyContact,
+            specialInstructions: entity.specialInstructions,
+            isLocationSharingActive: entity.isLocationSharingActive,
+            createdAt: entity.createdAt ?? Date()
+        )
+    }
+
+    public static func update(entity: SittingSessionEntity, from domain: SittingSession) {
+        entity.id = domain.id
+        entity.dogId = domain.dogId
+        entity.sitterName = domain.sitterName
+        entity.sitterPhone = domain.sitterPhone
+        entity.startDate = domain.startDate
+        entity.endDate = domain.endDate
+        entity.status = domain.status.rawValue
+        entity.emergencyContact = domain.emergencyContact
+        entity.specialInstructions = domain.specialInstructions
+        entity.isLocationSharingActive = domain.isLocationSharingActive
+        entity.createdAt = domain.createdAt
+    }
+
+    // MARK: - SittingActivityLog
+    public static func toDomain(entity: SittingActivityEntity) -> SittingActivityLog {
+        let type = SittingActivityType(rawValue: entity.activityType ?? "") ?? .note
+        return SittingActivityLog(
+            id: entity.id ?? UUID(),
+            sessionId: entity.sessionId ?? UUID(),
+            dogId: entity.dogId ?? UUID(),
+            activityType: type,
+            title: entity.title ?? "Activity",
+            notes: entity.notes,
+            timestamp: entity.timestamp ?? Date(),
+            loggedBy: entity.loggedBy ?? "Sitter",
+            locationLatitude: entity.locationLatitude != 0.0 ? entity.locationLatitude : nil,
+            locationLongitude: entity.locationLongitude != 0.0 ? entity.locationLongitude : nil
+        )
+    }
+
+    public static func update(entity: SittingActivityEntity, from domain: SittingActivityLog) {
+        entity.id = domain.id
+        entity.sessionId = domain.sessionId
+        entity.dogId = domain.dogId
+        entity.activityType = domain.activityType.rawValue
+        entity.title = domain.title
+        entity.notes = domain.notes
+        entity.timestamp = domain.timestamp
+        entity.loggedBy = domain.loggedBy
+        entity.locationLatitude = domain.locationLatitude ?? 0.0
+        entity.locationLongitude = domain.locationLongitude ?? 0.0
+    }
 }
+

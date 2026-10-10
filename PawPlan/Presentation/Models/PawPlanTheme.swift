@@ -11,8 +11,10 @@ public enum PawPlanTheme {
     // MARK: - Core Palette
     public static let background = Color(hex: "#080F20")
     public static let cardBackground = Color(hex: "#0E1B33")
+    public static let cardSurface = Color(hex: "#0E1B33")
     public static let cardBackgroundElevated = Color(hex: "#142546")
     public static let cardBorder = Color(hex: "#1E3563").opacity(0.6)
+    public static let midnightNavy = Color(hex: "#080F20")
 
     // MARK: - Electric Ocean Brand Accents
     public static let electricBlue = Color(hex: "#125BCE")
@@ -21,18 +23,22 @@ public enum PawPlanTheme {
 
     // MARK: - Feature Accents
     public static let walks = Color(hex: "#125BCE")       // Electric Blue
+    public static let walk = walks
     public static let feeding = Color(hex: "#15D9D2")     // Turquoise
     public static let grooming = Color(hex: "#9D4EDD")    // Violet
     public static let vetHealth = Color(hex: "#FF2A85")   // Pink
     public static let training = Color(hex: "#FF7B00")    // Orange
     public static let medication = Color(hex: "#00E676")  // Green
+    public static let positiveGreen = Color(hex: "#00E676")
     public static let expenses = Color(hex: "#FFB703")    // Amber
+    public static let amber = Color(hex: "#FFB703")
     public static let petPlaces = Color(hex: "#00E5FF")   // Vivid Cyan
 
     // MARK: - Text & Secondary
     public static let textPrimary = Color.white
     public static let textSecondary = Color(hex: "#94A3B8")
     public static let textTertiary = Color(hex: "#64748B")
+    public static let subtext = Color(hex: "#94A3B8")
 
     // MARK: - Gradients
     public static let heroGradient = LinearGradient(

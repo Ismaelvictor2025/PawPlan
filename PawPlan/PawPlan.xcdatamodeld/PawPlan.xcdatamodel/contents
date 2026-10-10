@@ -20,6 +20,8 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CareTaskEntity" inverseName="dog" inverseEntity="CareTaskEntity"/>
         <relationship name="trainingProgress" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrainingProgressEntity" inverseName="dog" inverseEntity="TrainingProgressEntity"/>
         <relationship name="vetAppointments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="VetAppointmentEntity" inverseName="dog" inverseEntity="VetAppointmentEntity"/>
+        <relationship name="careCircleProfile" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CareCircleProfileEntity" inverseName="dog" inverseEntity="CareCircleProfileEntity"/>
+        <relationship name="sittingSessions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SittingSessionEntity" inverseName="dog" inverseEntity="SittingSessionEntity"/>
     </entity>
     <entity name="CareTaskEntity" representedClassName="CareTaskEntity" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="NO" attributeType="String"/>
@@ -105,5 +107,66 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="title" optional="NO" attributeType="String"/>
         <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="documents" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="CareCircleProfileEntity" representedClassName="CareCircleProfileEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="allergiesJSON" optional="YES" attributeType="String"/>
+        <attribute name="bathingInstructions" optional="YES" attributeType="String"/>
+        <attribute name="behavioralNotes" optional="YES" attributeType="String"/>
+        <attribute name="calmingTechniques" optional="YES" attributeType="String"/>
+        <attribute name="dietaryRestrictions" optional="YES" attributeType="String"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="emergency24hHospital" optional="YES" attributeType="String"/>
+        <attribute name="favoriteParksJSON" optional="YES" attributeType="String"/>
+        <attribute name="feedingSchedule" optional="YES" attributeType="String"/>
+        <attribute name="groomingInstructions" optional="YES" attributeType="String"/>
+        <attribute name="homeAccessNotes" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="leashGuidelines" optional="YES" attributeType="String"/>
+        <attribute name="medicationsJSON" optional="YES" attributeType="String"/>
+        <attribute name="primaryContactName" optional="YES" attributeType="String"/>
+        <attribute name="primaryContactPhone" optional="YES" attributeType="String"/>
+        <attribute name="secondaryContactName" optional="YES" attributeType="String"/>
+        <attribute name="secondaryContactPhone" optional="YES" attributeType="String"/>
+        <attribute name="sitterContact" optional="YES" attributeType="String"/>
+        <attribute name="sitterName" optional="YES" attributeType="String"/>
+        <attribute name="sleepingArrangements" optional="YES" attributeType="String"/>
+        <attribute name="specialCareNotes" optional="YES" attributeType="String"/>
+        <attribute name="treatGuidelines" optional="YES" attributeType="String"/>
+        <attribute name="triggersJSON" optional="YES" attributeType="String"/>
+        <attribute name="updatedAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="vetAddress" optional="YES" attributeType="String"/>
+        <attribute name="vetClinicName" optional="YES" attributeType="String"/>
+        <attribute name="vetDoctorName" optional="YES" attributeType="String"/>
+        <attribute name="vetPhone" optional="YES" attributeType="String"/>
+        <attribute name="walkingRoutine" optional="YES" attributeType="String"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="careCircleProfile" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="SittingSessionEntity" representedClassName="SittingSessionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="emergencyContact" optional="YES" attributeType="String"/>
+        <attribute name="endDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isLocationSharingActive" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="sitterName" optional="NO" attributeType="String"/>
+        <attribute name="sitterPhone" optional="YES" attributeType="String"/>
+        <attribute name="specialInstructions" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" optional="NO" attributeType="String" defaultValueString="scheduled"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SittingActivityEntity" inverseName="session" inverseEntity="SittingActivityEntity"/>
+        <relationship name="dog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DogEntity" inverseName="sittingSessions" inverseEntity="DogEntity"/>
+    </entity>
+    <entity name="SittingActivityEntity" representedClassName="SittingActivityEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="activityType" optional="NO" attributeType="String"/>
+        <attribute name="dogId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="locationLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="locationLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="loggedBy" optional="NO" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="sessionId" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SittingSessionEntity" inverseName="activities" inverseEntity="SittingSessionEntity"/>
     </entity>
 </model>

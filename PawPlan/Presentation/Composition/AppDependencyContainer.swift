@@ -24,6 +24,8 @@ public final class AppDependencyContainer: ObservableObject {
     public let trainingRepository: TrainingRepositoryProtocol
     public let expenseRepository: ExpenseRepositoryProtocol
     public let documentRepository: DocumentRepositoryProtocol
+    public let careCircleRepository: CareCircleRepositoryProtocol
+    public let sittingSessionRepository: SittingSessionRepositoryProtocol
 
     // Use Cases
     public let getDogsUseCase: GetDogsUseCase
@@ -35,9 +37,14 @@ public final class AppDependencyContainer: ObservableObject {
     public let manageExpensesUseCase: ManageExpensesUseCase
     public let updateWidgetSnapshotUseCase: UpdateWidgetSnapshotUseCase
     public let getSydneyPetPlacesUseCase: GetSydneyPetPlacesUseCase
+    public let manageCareCircleUseCase: ManageCareCircleUseCase
+    public let exportCareInstructionsUseCase: ExportCareInstructionsUseCase
+    public let manageSittingSessionUseCase: ManageSittingSessionUseCase
+    public let recordSittingActivityUseCase: RecordSittingActivityUseCase
 
     // Services
     public let notificationService: NotificationSchedulingService
+    public let locationManager: CareLocationManager
 
     // Published State
     @Published public var dogs: [Dog] = []
@@ -52,7 +59,9 @@ public final class AppDependencyContainer: ObservableObject {
         healthRecordRepository: HealthRecordRepositoryProtocol? = nil,
         trainingRepository: TrainingRepositoryProtocol? = nil,
         expenseRepository: ExpenseRepositoryProtocol? = nil,
-        documentRepository: DocumentRepositoryProtocol? = nil
+        documentRepository: DocumentRepositoryProtocol? = nil,
+        careCircleRepository: CareCircleRepositoryProtocol? = nil,
+        sittingSessionRepository: SittingSessionRepositoryProtocol? = nil
     ) {
         self.persistenceController = persistenceController
         let viewContext = persistenceController.viewContext
@@ -63,6 +72,8 @@ public final class AppDependencyContainer: ObservableObject {
         let tRepo = trainingRepository ?? CoreDataTrainingRepository(context: viewContext)
         let eRepo = expenseRepository ?? CoreDataExpenseRepository(context: viewContext)
         let docRepo = documentRepository ?? CoreDataDocumentRepository(context: viewContext)
+        let ccRepo = careCircleRepository ?? CoreDataCareCircleRepository(context: viewContext)
+        let ssRepo = sittingSessionRepository ?? CoreDataSittingSessionRepository(context: viewContext)
 
         self.dogRepository = dRepo
         self.careTaskRepository = cRepo
@@ -70,6 +81,8 @@ public final class AppDependencyContainer: ObservableObject {
         self.trainingRepository = tRepo
         self.expenseRepository = eRepo
         self.documentRepository = docRepo
+        self.careCircleRepository = ccRepo
+        self.sittingSessionRepository = ssRepo
 
         self.getDogsUseCase = GetDogsUseCase(dogRepository: dRepo)
         self.saveDogUseCase = SaveDogUseCase(dogRepository: dRepo)
@@ -80,8 +93,13 @@ public final class AppDependencyContainer: ObservableObject {
         self.manageExpensesUseCase = ManageExpensesUseCase(expenseRepository: eRepo)
         self.updateWidgetSnapshotUseCase = UpdateWidgetSnapshotUseCase(dogRepository: dRepo, careTaskRepository: cRepo)
         self.getSydneyPetPlacesUseCase = GetSydneyPetPlacesUseCase()
+        self.manageCareCircleUseCase = ManageCareCircleUseCase(repository: ccRepo, dogRepository: dRepo)
+        self.exportCareInstructionsUseCase = ExportCareInstructionsUseCase()
+        self.manageSittingSessionUseCase = ManageSittingSessionUseCase(repository: ssRepo)
+        self.recordSittingActivityUseCase = RecordSittingActivityUseCase(repository: ssRepo)
 
         self.notificationService = NotificationSchedulingService.shared
+        self.locationManager = CareLocationManager.shared
 
         // Load initial state
         refreshDogs()

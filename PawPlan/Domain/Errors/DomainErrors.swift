@@ -89,3 +89,59 @@ public enum PersistenceError: LocalizedError, Equatable {
         }
     }
 }
+
+public enum CareCircleError: LocalizedError, Equatable {
+    case profileNotFound(UUID)
+    case emptyPrimaryContact
+    case emptyVetClinic
+    case invalidMedication(String)
+    case sharingFailed(String)
+    case persistenceFailed(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .profileNotFound(let id):
+            return "No Care Circle profile found for dog \(id)."
+        case .emptyPrimaryContact:
+            return "Primary emergency contact name and phone number are required."
+        case .emptyVetClinic:
+            return "Veterinary clinic name is required."
+        case .invalidMedication(let reason):
+            return "Medication validation failed: \(reason)"
+        case .sharingFailed(let msg):
+            return "Could not prepare care packet for sharing: \(msg)"
+        case .persistenceFailed(let msg):
+            return "Care Circle persistence error: \(msg)"
+        }
+    }
+}
+
+public enum SittingSessionError: LocalizedError, Equatable {
+    case sessionNotFound(UUID)
+    case invalidDateRange
+    case emptySitterName
+    case sessionAlreadyCompleted
+    case sessionNotActive
+    case locationSharingDenied
+    case persistenceFailed(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .sessionNotFound(let id):
+            return "Sitting session \(id) was not found."
+        case .invalidDateRange:
+            return "Session end time must be after the start time."
+        case .emptySitterName:
+            return "Sitter name cannot be blank."
+        case .sessionAlreadyCompleted:
+            return "Cannot modify or log activities to an already completed sitting session."
+        case .sessionNotActive:
+            return "Activities can only be recorded while the sitting session is active."
+        case .locationSharingDenied:
+            return "Location sharing requires Location Services permission to be granted in Settings."
+        case .persistenceFailed(let msg):
+            return "Sitting session persistence error: \(msg)"
+        }
+    }
+}
+

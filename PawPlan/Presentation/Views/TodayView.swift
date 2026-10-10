@@ -15,6 +15,7 @@ public struct TodayView: View {
     @State private var showAddWalk: Bool = false
     @State private var showAddFeeding: Bool = false
     @State private var showAddCareTask: Bool = false
+    @State private var showCareCircle: Bool = false
     @State private var nextTask: CareTask?
     @State private var consistencyReport: CareConsistencyReport?
     @State private var showTestNotificationAlert: Bool = false
@@ -79,6 +80,12 @@ public struct TodayView: View {
                         .padding(.horizontal, 20)
                 }
 
+                // 6. CARE CIRCLE & SITTER QUICK ACCESS
+                CareCircleTodayBanner {
+                    showCareCircle = true
+                }
+                .padding(.horizontal, 20)
+
                 Spacer(minLength: 40)
             }
             .padding(.bottom, 20)
@@ -92,6 +99,17 @@ public struct TodayView: View {
         }
         .sheet(isPresented: $showDogPicker) {
             DogProfilePickerModal(container: container, isPresented: $showDogPicker)
+        }
+        .sheet(isPresented: $showCareCircle) {
+            NavigationView {
+                CareCircleDashboardView(container: container)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") { showCareCircle = false }
+                                .foregroundColor(PawPlanTheme.electricTurquoise)
+                        }
+                    }
+            }
         }
         .sheet(isPresented: $showAddWalk) {
             AddCareTaskModal(container: container, isPresented: $showAddWalk, defaultCategory: .walk)
@@ -205,3 +223,55 @@ private struct ConsistencySummaryCard: View {
         )
     }
 }
+
+private struct CareCircleTodayBanner: View {
+    let onTap: () -> Void
+
+    var body: some View {
+        Button {
+            onTap()
+        } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle()
+                        .fill(PawPlanTheme.turquoiseGradient)
+                        .frame(width: 44, height: 44)
+                    Image(systemName: "person.2.badge.gearshape.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(PawPlanTheme.midnightNavy)
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        Text("PawPlan Care Circle")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text("Sitter Mode")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(PawPlanTheme.electricTurquoise)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(PawPlanTheme.electricTurquoise.opacity(0.15))
+                            .cornerRadius(8)
+                    }
+
+                    Text("Sitter instructions, live care updates & secure sharing")
+                        .font(.system(size: 12))
+                        .foregroundColor(PawPlanTheme.subtext)
+                        .lineLimit(1)
+                }
+            }
+            .padding(14)
+            .background(
+                RoundedRectangle(cornerRadius: 18)
+                    .fill(PawPlanTheme.cardSurface)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18)
+                            .stroke(PawPlanTheme.cardBorder, lineWidth: 1)
+                    )
+            )
+        }
+    }
+}
+
