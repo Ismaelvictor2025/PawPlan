@@ -72,4 +72,9 @@ public struct ExportCareInstructionsUseCase: Sendable {
     public func executeGeneratePDF(profile: CareCircleProfile, dog: Dog, config: CareCircleShareConfig) -> Data {
         config.generatePDF(profile: profile, dog: dog)
     }
+
+    @MainActor
+    public func executeGenerateAndSavePDF(profile: CareCircleProfile, dog: Dog, config: CareCircleShareConfig) throws -> URL {
+        try CarePacketPDFGenerator.shared.generateAndSavePDF(profile: profile, dog: dog, config: config)
+    }
 }

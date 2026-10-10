@@ -160,52 +160,14 @@ public struct CareCircleShareConfig: Equatable, Sendable {
         return sections.joined(separator: "\n")
     }
 
-    /// Generates a PDF data representation formatted for printing or sharing.
+    /// Generates a multipage PDF representation formatted for printing or sharing.
     @MainActor
     public func generatePDF(profile: CareCircleProfile, dog: Dog) -> Data {
-        let pdfMetaData = [
-            kCGPDFContextCreator: "PawPlan iOS App",
-            kCGPDFContextAuthor: profile.primaryContactName,
-            kCGPDFContextTitle: "PawPlan Care Packet - \(dog.name)"
-        ]
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMetaData as [String: Any]
-
-        let pageWidth: CGFloat = 612
-        let pageHeight: CGFloat = 792
-        let margin: CGFloat = 40
-        let contentWidth = pageWidth - (margin * 2)
-
-        let renderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), format: format)
-
-        return renderer.pdfData { context in
-            context.beginPage()
-
-            var currentY: CGFloat = margin
-
-            // Header Banner
-            let headerRect = CGRect(x: margin, y: currentY, width: contentWidth, height: 48)
-            let headerPath = UIBezierPath(roundedRect: headerRect, cornerRadius: 8)
-            UIColor(red: 8/255, green: 15/255, blue: 32/255, alpha: 1.0).setFill()
-            headerPath.fill()
-
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 18, weight: .bold),
-                .foregroundColor: UIColor(red: 21/255, green: 217/255, blue: 210/255, alpha: 1.0)
-            ]
-            let titleString = "PAWPLAN CARE CIRCLE — \(dog.name.uppercased())"
-            titleString.draw(at: CGPoint(x: margin + 14, y: currentY + 14), withAttributes: titleAttributes)
-
-            currentY += 60
-
-            let summaryText = generateFormattedSummary(profile: profile, dog: dog)
-            let bodyAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 10, weight: .regular),
-                .foregroundColor: UIColor.black
-            ]
-
-            let textRect = CGRect(x: margin, y: currentY, width: contentWidth, height: pageHeight - currentY - margin)
-            summaryText.draw(in: textRect, withAttributes: bodyAttributes)
+        do {
+            return try CarePacketPDFGenerator.shared.generatePDFData(profile: profile, dog: dog, config: self)
+        } catch {
+            print("[CareCircleShareConfig] PDF generation fallback: \(error)")
+            return Data()
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Testing
 import Foundation
+import PDFKit
 @testable import PawPlan
 
 // MARK: - In-Memory Repository Mocks for Deterministic Testing
@@ -692,5 +693,74 @@ struct PawPlanTests {
         #expect(throws: SittingSessionError.self) {
             try sessionUseCase.executeCreateSession(session)
         }
+    }
+
+    // 15. Real Multipage PDF Generation & Privacy Controls
+    @Test @MainActor func testMultipagePDFGenerationAndPrivacyControls() async throws {
+        let dog = Dog(name: "Archie", breed: "Cavoodle", weight: 8.5)
+        var profile = CareCircleProfile.defaultProfile(for: dog)
+        profile.primaryContactName = "Alex Owner"
+        profile.primaryContactPhone = "0400 111 222"
+        profile.homeAccessNotes = "Secret Keybox Code: 8391 under the garage plant."
+        profile.medications = [
+            CareCircleMedication(name: "Apoquel", dosage: "5.4mg", frequency: "Daily morning", administrationInstructions: "Give wrapped in cheese")
+        ]
+
+        let generator = CarePacketPDFGenerator()
+
+        // 1. Multipage generation with home access notes EXCLUDED (Default Privacy)
+        var configRedacted = CareCircleShareConfig()
+        configRedacted.includeHomeAccessNotes = false
+        configRedacted.includeMedications = true
+
+        let pdfData = try generator.generatePDFData(profile: profile, dog: dog, config: configRedacted)
+        #expect(!pdfData.isEmpty)
+        #expect(pdfData.count > 1000)
+
+        // Verify PDF Magic Bytes (%PDF-)
+        let headerString = String(decoding: pdfData.prefix(5), as: UTF8.self)
+        #expect(headerString == "%PDF-")
+
+        // Parse with Apple's native PDFKit
+        let pdfDoc = PDFDocument(data: pdfData)
+        #expect(pdfDoc != nil)
+        #expect((pdfDoc?.pageCount ?? 0) >= 2) // Confirms multipage output
+
+        let extractedText = pdfDoc?.string ?? ""
+        #expect(extractedText.contains("ARCHIE"))
+        #expect(extractedText.contains("FEEDING SCHEDULE"))
+        #expect(extractedText.contains("Apoquel"))
+        #expect(!extractedText.contains("8391")) // Sensitive home access code is omitted!
+
+        // 2. Generation with home access notes INCLUDED
+        var configWithAccess = CareCircleShareConfig()
+        configWithAccess.includeHomeAccessNotes = true
+        configWithAccess.includeMedications = false
+
+        let pdfDataAccess = try generator.generatePDFData(profile: profile, dog: dog, config: configWithAccess)
+        let pdfDocAccess = PDFDocument(data: pdfDataAccess)
+        let extractedTextAccess = pdfDocAccess?.string ?? ""
+        #expect(extractedTextAccess.contains("8391")) // Now included
+        #expect(!extractedTextAccess.contains("Apoquel")) // Medication deselected and excluded!
+    }
+
+    // 16. PDF Temporary File Creation and Persistence
+    @Test @MainActor func testPDFTemporaryFileCreationAndPersistence() async throws {
+        let dog = Dog(name: "Archie Parker", breed: "Cavoodle", weight: 8.5)
+        let profile = CareCircleProfile.defaultProfile(for: dog)
+        let config = CareCircleShareConfig()
+
+        let generator = CarePacketPDFGenerator()
+        let fileURL = try generator.generateAndSavePDF(profile: profile, dog: dog, config: config)
+
+        #expect(fileURL.pathExtension == "pdf")
+        #expect(FileManager.default.fileExists(atPath: fileURL.path))
+
+        let fileData = try Data(contentsOf: fileURL)
+        #expect(fileData.count > 1000)
+
+        let pdfDoc = PDFDocument(data: fileData)
+        #expect(pdfDoc != nil)
+        #expect((pdfDoc?.pageCount ?? 0) >= 1)
     }
 }
