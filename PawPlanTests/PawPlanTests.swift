@@ -168,6 +168,7 @@ final class MockSittingSessionRepository: SittingSessionRepositoryProtocol, @unc
 
 // MARK: - Test Suite
 
+@MainActor
 struct PawPlanTests {
 
     // 1. Dog Profile Tests

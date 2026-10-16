@@ -9,7 +9,7 @@ import CoreData
 import Foundation
 
 public final class PersistenceController: @unchecked Sendable {
-    public static let shared = PersistenceController()
+    public nonisolated static let shared = PersistenceController()
 
     public let container: NSPersistentContainer
 
@@ -27,7 +27,9 @@ public final class PersistenceController: @unchecked Sendable {
         }
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
-                fatalError("Unresolved Core Data error \(error), \(error.userInfo)")
+                #if DEBUG
+                print("[PersistenceController] Core Data store load warning: \(error), \(error.userInfo)")
+                #endif
             }
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
