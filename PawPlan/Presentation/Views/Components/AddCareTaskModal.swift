@@ -74,6 +74,7 @@ public struct AddCareTaskModal: View {
                     .listRowBackground(PawPlanTheme.cardBackgroundElevated)
                 }
                 .scrollContentBackground(.hidden)
+                .scrollDismissesKeyboard(.interactively)
             }
             .navigationTitle("New Care Activity")
             .navigationBarTitleDisplayMode(.inline)
