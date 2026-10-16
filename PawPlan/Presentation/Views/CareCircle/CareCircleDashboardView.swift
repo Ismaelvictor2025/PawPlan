@@ -172,7 +172,7 @@ private struct CareCircleHeroHeader: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\(dog.name)'s Care Circle")
                         .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
 
                     Text("Sitter instructions, live care updates & secure sharing")
                         .font(.system(size: 13))
@@ -250,7 +250,7 @@ private struct CarePacketSummaryCard: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Dog Sitter Instructions")
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
                     Text("Updated \(profile.updatedAt.formatted(date: .abbreviated, time: .shortened))")
                         .font(.system(size: 11))
                         .foregroundColor(PawPlanTheme.subtext)
@@ -347,7 +347,7 @@ private struct CareHighlightRow: View {
                     .foregroundColor(PawPlanTheme.subtext)
                 Text(detail)
                     .font(.system(size: 13))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
                     .lineLimit(2)
             }
             Spacer()
@@ -383,7 +383,7 @@ private struct ActiveSessionCard: View {
 
                 Text("Sitter: \(session.sitterName)")
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 Text(session.formattedDurationDescription)
                     .font(.system(size: 12))
@@ -430,7 +430,7 @@ private struct ScheduledSessionCard: View {
 
                 Text("Sitter: \(session.sitterName)")
                     .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 Text(session.formattedDurationDescription)
                     .font(.system(size: 12))
@@ -460,7 +460,7 @@ private struct EmptySittingSessionCard: View {
 
             Text("No Active Dog Sitting Session")
                 .font(.system(size: 15, weight: .bold))
-                .foregroundColor(.white)
+                .foregroundColor(PawPlanTheme.textPrimary)
 
             Text("Create a sitting session when leaving your dog with a sitter, family member, or boarding service.")
                 .font(.system(size: 12))
@@ -506,7 +506,7 @@ private struct LocationAndAirTagBannerCard: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text("Walk Location & Find My AirTag Guide")
                     .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 Text("Voluntary sitter walk tracking & Apple-supported tag sharing")
                     .font(.system(size: 12))

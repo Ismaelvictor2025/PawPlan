@@ -111,7 +111,7 @@ public struct ExpensesTrackerView: View {
             ShareSheet(activityItems: [csvExportString])
         }
         .onAppear { loadExpenses() }
-        .onChange(of: container.activeDog) { _ in loadExpenses() }
+        .onChange(of: container.activeDog) { loadExpenses() }
     }
 
     private func loadExpenses() {
@@ -148,7 +148,7 @@ private struct ExpenseBudgetBanner: View {
 
                     Text(String(format: "$%.2f", summary.totalAmount))
                         .font(.system(size: 32, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
                 }
 
                 Spacer()
@@ -214,7 +214,7 @@ private struct CategoryExpenseTile: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(category.rawValue)
                     .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
                     .lineLimit(1)
                 Text(String(format: "$%.2f", amount))
                     .font(.system(size: 13, weight: .heavy, design: .rounded))
@@ -253,7 +253,7 @@ private struct ExpenseRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(expense.merchant ?? expense.category.rawValue)
                     .font(.system(size: 15, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 HStack(spacing: 6) {
                     Text(expense.category.rawValue)
@@ -271,7 +271,7 @@ private struct ExpenseRow: View {
 
             Text(expense.formattedAmount)
                 .font(.system(size: 16, weight: .black, design: .rounded))
-                .foregroundColor(.white)
+                .foregroundColor(PawPlanTheme.textPrimary)
         }
         .padding(12)
         .background(

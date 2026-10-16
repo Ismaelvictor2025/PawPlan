@@ -32,7 +32,7 @@ public struct DocumentVaultView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Secure Local Storage")
                                 .font(.system(size: 14, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                             Text("All registration papers, certificates, and records are encrypted and kept strictly on this device.")
                                 .font(.system(size: 12, weight: .medium, design: .rounded))
                                 .foregroundColor(PawPlanTheme.textSecondary)
@@ -88,7 +88,7 @@ public struct DocumentVaultView: View {
                 .onDisappear { loadDocuments() }
         }
         .onAppear { loadDocuments() }
-        .onChange(of: container.activeDog) { _ in loadDocuments() }
+        .onChange(of: container.activeDog) { loadDocuments() }
     }
 
     private func loadDocuments() {
@@ -118,7 +118,7 @@ private struct DocumentRowCard: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(doc.title)
                     .font(.system(size: 15, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 Text(doc.category.rawValue)
                     .font(.system(size: 12, weight: .semibold, design: .rounded))

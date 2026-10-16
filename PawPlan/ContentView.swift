@@ -29,7 +29,6 @@ public struct ContentView: View {
                     .zIndex(10)
             }
         }
-        .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $showOnboarding) {
             PawPlanOnboardingView(container: container, isPresented: $showOnboarding)
         }

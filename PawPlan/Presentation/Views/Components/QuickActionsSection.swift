@@ -31,7 +31,7 @@ public struct QuickActionsSection: View {
                     .foregroundColor(PawPlanTheme.electricTurquoise)
                 Text("Quick Actions")
                     .font(.system(size: 15, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
             }
             .padding(.horizontal, 20)
 

@@ -27,7 +27,7 @@ public struct DogProfilePickerModal: View {
                     VStack(alignment: .leading, spacing: 20) {
                         Text("Select Active Dog Profile")
                             .font(.system(size: 20, weight: .black, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
                             .padding(.horizontal, 20)
                             .padding(.top, 10)
 
@@ -52,7 +52,7 @@ public struct DogProfilePickerModal: View {
                                             HStack {
                                                 Text(dog.name)
                                                     .font(.system(size: 17, weight: .bold, design: .rounded))
-                                                    .foregroundColor(.white)
+                                                    .foregroundColor(PawPlanTheme.textPrimary)
                                                 if dog.id == container.activeDog?.id {
                                                     Text("ACTIVE")
                                                         .font(.system(size: 10, weight: .black, design: .rounded))
@@ -130,7 +130,7 @@ public struct DogProfilePickerModal: View {
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text("Reset to Sydney Demo Data")
                                             .font(.system(size: 14, weight: .bold, design: .rounded))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(PawPlanTheme.textPrimary)
                                         Text("Re-populates Archie, Bella, schedules & vet records")
                                             .font(.system(size: 12, weight: .medium, design: .rounded))
                                             .foregroundColor(PawPlanTheme.textSecondary)
@@ -205,6 +205,7 @@ public struct AddDogModal: View {
                     .listRowBackground(PawPlanTheme.cardBackgroundElevated)
                 }
                 .scrollContentBackground(.hidden)
+                .scrollDismissesKeyboard(.interactively)
             }
             .navigationTitle("New Dog Profile")
             .navigationBarTitleDisplayMode(.inline)

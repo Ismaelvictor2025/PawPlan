@@ -103,7 +103,7 @@ public struct CareCircleProfileEditView: View {
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(med.name)
                                             .font(.system(size: 14, weight: .bold))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(PawPlanTheme.textPrimary)
                                         Text("\(med.dosage) • \(med.frequency)")
                                             .font(.system(size: 12))
                                             .foregroundColor(PawPlanTheme.subtext)
@@ -368,10 +368,10 @@ struct FormField: View {
 
             TextField(label, text: $text)
                 .font(.system(size: 14))
-                .foregroundColor(.white)
+                .foregroundColor(PawPlanTheme.textPrimary)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 10)
-                .background(PawPlanTheme.midnightNavy.opacity(0.6))
+                .background(PawPlanTheme.cardBackgroundElevated)
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)

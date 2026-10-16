@@ -6,39 +6,53 @@
 //
 
 import SwiftUI
+import UIKit
 
 public enum PawPlanTheme {
-    // MARK: - Core Palette
-    public static let background = Color(hex: "#080F20")
-    public static let cardBackground = Color(hex: "#0E1B33")
-    public static let cardSurface = Color(hex: "#0E1B33")
-    public static let cardBackgroundElevated = Color(hex: "#142546")
-    public static let cardBorder = Color(hex: "#1E3563").opacity(0.6)
+    // Helper to generate dynamic adaptive colors
+    private static func dynamicColor(lightHex: String, darkHex: String, lightOpacity: Double = 1.0, darkOpacity: Double = 1.0) -> Color {
+        Color(uiColor: UIColor { traits in
+            if traits.userInterfaceStyle == .dark {
+                return UIColor(Color(hex: darkHex).opacity(darkOpacity))
+            } else {
+                return UIColor(Color(hex: lightHex).opacity(lightOpacity))
+            }
+        })
+    }
+
+    // MARK: - Core Palette (Light & Dark Mode Aware)
+    public static let background = dynamicColor(lightHex: "#F8FAFC", darkHex: "#080F20")
+    public static let cardBackground = dynamicColor(lightHex: "#FFFFFF", darkHex: "#0E1B33")
+    public static let cardSurface = dynamicColor(lightHex: "#FFFFFF", darkHex: "#0E1B33")
+    public static let cardBackgroundElevated = dynamicColor(lightHex: "#F1F5F9", darkHex: "#142546")
+    public static let cardBorder = dynamicColor(lightHex: "#CBD5E1", darkHex: "#1E3563", lightOpacity: 0.8, darkOpacity: 0.6)
     public static let midnightNavy = Color(hex: "#080F20")
 
     // MARK: - Electric Ocean Brand Accents
     public static let electricBlue = Color(hex: "#125BCE")
     public static let electricTurquoise = Color(hex: "#15D9D2")
-    public static let lightCyan = Color(hex: "#85F4FF")
+    public static let lightCyan = dynamicColor(lightHex: "#0284C7", darkHex: "#85F4FF")
 
     // MARK: - Feature Accents
     public static let walks = Color(hex: "#125BCE")       // Electric Blue
     public static let walk = walks
-    public static let feeding = Color(hex: "#15D9D2")     // Turquoise
+    public static let feeding = dynamicColor(lightHex: "#0D9488", darkHex: "#15D9D2")     // Turquoise
     public static let grooming = Color(hex: "#9D4EDD")    // Violet
     public static let vetHealth = Color(hex: "#FF2A85")   // Pink
     public static let training = Color(hex: "#FF7B00")    // Orange
-    public static let medication = Color(hex: "#00E676")  // Green
-    public static let positiveGreen = Color(hex: "#00E676")
+    public static let medication = dynamicColor(lightHex: "#16A34A", darkHex: "#00E676")  // Green
+    public static let positiveGreen = dynamicColor(lightHex: "#16A34A", darkHex: "#00E676")
     public static let expenses = Color(hex: "#FFB703")    // Amber
     public static let amber = Color(hex: "#FFB703")
-    public static let petPlaces = Color(hex: "#00E5FF")   // Vivid Cyan
+    public static let petPlaces = dynamicColor(lightHex: "#0284C7", darkHex: "#00E5FF")   // Vivid Cyan
 
     // MARK: - Text & Secondary
-    public static let textPrimary = Color.white
-    public static let textSecondary = Color(hex: "#94A3B8")
-    public static let textTertiary = Color(hex: "#64748B")
-    public static let subtext = Color(hex: "#94A3B8")
+    public static let textPrimary = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark ? .white : UIColor(Color(hex: "#0F172A"))
+    })
+    public static let textSecondary = dynamicColor(lightHex: "#475569", darkHex: "#94A3B8")
+    public static let textTertiary = dynamicColor(lightHex: "#94A3B8", darkHex: "#64748B")
+    public static let subtext = dynamicColor(lightHex: "#475569", darkHex: "#94A3B8")
 
     // MARK: - Gradients
     public static let heroGradient = LinearGradient(
@@ -48,7 +62,7 @@ public enum PawPlanTheme {
     )
 
     public static let cardGradient = LinearGradient(
-        colors: [Color(hex: "#0E1B33"), Color(hex: "#091427")],
+        colors: [cardSurface, cardBackgroundElevated],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )

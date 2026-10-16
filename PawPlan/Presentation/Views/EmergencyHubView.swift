@@ -30,7 +30,7 @@ public struct EmergencyHubView: View {
                         VStack(alignment: .leading, spacing: 3) {
                             Text("Sydney Emergency Assistance")
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                             Text("If your dog is unconscious, having seizures, choking, or showing paralysis tick signs, call an emergency hospital immediately.")
                                 .font(.system(size: 12, weight: .medium, design: .rounded))
                                 .foregroundColor(PawPlanTheme.textSecondary)
@@ -139,7 +139,7 @@ private struct EmergencyCallButton: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
                         .font(.system(size: 15, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
                     Text(subtitle)
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(PawPlanTheme.textSecondary)
@@ -184,7 +184,7 @@ private struct TriageSymptomCard: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text("Signs: \(symptoms)")
                     .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
                 Text("Action: \(action)")
                     .font(.system(size: 12, weight: .medium, design: .rounded))
                     .foregroundColor(PawPlanTheme.textSecondary)

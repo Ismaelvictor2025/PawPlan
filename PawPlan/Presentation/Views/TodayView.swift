@@ -94,7 +94,7 @@ public struct TodayView: View {
         .onAppear {
             loadDashboardData()
         }
-        .onChange(of: container.activeDog) { _ in
+        .onChange(of: container.activeDog) {
             loadDashboardData()
         }
         .sheet(isPresented: $showDogPicker) {
@@ -176,14 +176,14 @@ private struct ConsistencySummaryCard: View {
 
                 Text("\(report.currentStreakDays) Days Active")
                     .font(.system(size: 13, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
             }
 
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(report.adherenceDescription)
                         .font(.system(size: 17, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
                     Text("\(report.totalCompleted) care routines completed this week")
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(PawPlanTheme.textSecondary)
@@ -208,7 +208,7 @@ private struct ConsistencySummaryCard: View {
 
                     Text("\(Int(report.consistencyRate * 100))%")
                         .font(.system(size: 12, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(PawPlanTheme.textPrimary)
                 }
             }
         }
@@ -245,7 +245,7 @@ private struct CareCircleTodayBanner: View {
                     HStack {
                         Text("PawPlan Care Circle")
                             .font(.system(size: 15, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
                         Spacer()
                         Text("Sitter Mode")
                             .font(.system(size: 11, weight: .bold))

@@ -35,7 +35,7 @@ public struct PuppyAcademyView: View {
 
                         Text("Puppy Training Academy")
                             .font(.system(size: 26, weight: .black, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
 
                         Text("Positive reinforcement modules designed to build calm confidence and practical life skills for your dog in Sydney.")
                             .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -77,7 +77,7 @@ public struct PuppyAcademyView: View {
         .navigationTitle("Training Academy")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { loadProgress() }
-        .onChange(of: container.activeDog) { _ in loadProgress() }
+        .onChange(of: container.activeDog) { loadProgress() }
     }
 
     private func loadProgress() {
@@ -145,7 +145,7 @@ private struct ModuleCard: View {
                     VStack(alignment: .leading, spacing: 3) {
                         Text(module.title)
                             .font(.system(size: 17, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
                             .lineLimit(1)
 
                         Text("\(completedCount) of \(module.milestones.count) milestones completed")

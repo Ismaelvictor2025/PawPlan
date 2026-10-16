@@ -23,7 +23,7 @@ public struct PawPlanOpeningAnimationView: View {
 
     public var body: some View {
         ZStack {
-            Color(hex: "#080F20")
+            PawPlanTheme.background
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
@@ -49,7 +49,7 @@ public struct PawPlanOpeningAnimationView: View {
                     HStack(spacing: 2) {
                         Text("PAW")
                             .font(.system(size: 32, weight: .black, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
                         Text("PLAN")
                             .font(.system(size: 32, weight: .black, design: .rounded))
                             .foregroundColor(PawPlanTheme.electricTurquoise)

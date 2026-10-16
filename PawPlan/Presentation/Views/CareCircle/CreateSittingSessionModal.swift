@@ -38,17 +38,17 @@ public struct CreateSittingSessionModal: View {
 
                             TextField("Sitter Name * (e.g. Sarah Jenkins)", text: $sitterName)
                                 .font(.system(size: 14))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                                 .padding(12)
-                                .background(PawPlanTheme.midnightNavy.opacity(0.6))
+                                .background(PawPlanTheme.cardBackgroundElevated)
                                 .cornerRadius(10)
 
                             TextField("Sitter Contact Phone (optional)", text: $sitterPhone)
                                 .font(.system(size: 14))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                                 .keyboardType(.phonePad)
                                 .padding(12)
-                                .background(PawPlanTheme.midnightNavy.opacity(0.6))
+                                .background(PawPlanTheme.cardBackgroundElevated)
                                 .cornerRadius(10)
                         }
                         .padding(16)
@@ -67,15 +67,15 @@ public struct CreateSittingSessionModal: View {
 
                             DatePicker("Start Time", selection: $startDate, displayedComponents: [.date, .hourAndMinute])
                                 .datePickerStyle(.compact)
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
 
                             DatePicker("End Time", selection: $endDate, in: startDate..., displayedComponents: [.date, .hourAndMinute])
                                 .datePickerStyle(.compact)
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
 
                             Toggle("Start Sitting Session Immediately", isOn: $startImmediately)
                                 .tint(PawPlanTheme.electricTurquoise)
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                                 .font(.system(size: 13, weight: .medium))
                         }
                         .padding(16)
@@ -94,18 +94,18 @@ public struct CreateSittingSessionModal: View {
 
                             TextField("Emergency Contact Phone *", text: $emergencyContact)
                                 .font(.system(size: 14))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                                 .keyboardType(.phonePad)
                                 .padding(12)
-                                .background(PawPlanTheme.midnightNavy.opacity(0.6))
+                                .background(PawPlanTheme.cardBackgroundElevated)
                                 .cornerRadius(10)
 
                             TextField("Special Session Instructions (optional)", text: $specialInstructions, axis: .vertical)
                                 .font(.system(size: 14))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                                 .lineLimit(3...5)
                                 .padding(12)
-                                .background(PawPlanTheme.midnightNavy.opacity(0.6))
+                                .background(PawPlanTheme.cardBackgroundElevated)
                                 .cornerRadius(10)
                         }
                         .padding(16)
@@ -137,6 +137,7 @@ public struct CreateSittingSessionModal: View {
                     }
                     .padding(20)
                 }
+                .scrollDismissesKeyboard(.interactively)
             }
             .navigationTitle("New Sitting Session")
             .navigationBarTitleDisplayMode(.inline)

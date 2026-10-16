@@ -119,7 +119,7 @@ public struct HealthView: View {
                     .onDisappear { loadHealthData() }
             }
             .onAppear { loadHealthData() }
-            .onChange(of: container.activeDog) { _ in loadHealthData() }
+            .onChange(of: container.activeDog) { loadHealthData() }
         }
     }
 
@@ -158,13 +158,13 @@ private struct UpcomingVetCard: View {
                 Spacer()
                 Text(dateString)
                     .font(.system(size: 13, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
             }
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(appointment.clinicName)
                     .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
                 Text(appointment.reason)
                     .font(.system(size: 14, weight: .medium, design: .rounded))
                     .foregroundColor(PawPlanTheme.textSecondary)
@@ -215,7 +215,7 @@ private struct HealthRecordCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(record.title)
                     .font(.system(size: 15, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
 
                 HStack(spacing: 6) {
                     Text(record.recordType.rawValue)
@@ -265,7 +265,7 @@ private struct VetAppointmentRow: View {
             HStack {
                 Text(appointment.clinicName)
                     .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(PawPlanTheme.textPrimary)
                 Spacer()
                 Text(dateString)
                     .font(.system(size: 13, weight: .bold, design: .rounded))
