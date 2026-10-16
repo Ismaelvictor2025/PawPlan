@@ -231,7 +231,7 @@ public struct CareCircleShareSheetView: View {
             .onAppear {
                 updatePreview()
             }
-            .onChange(of: config) { _ in
+            .onChange(of: config) {
                 updatePreview()
             }
             .alert("Care Packet Export", isPresented: $showErrorAlert) {

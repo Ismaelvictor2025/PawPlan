@@ -44,7 +44,7 @@ public struct ExploreView: View {
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(PawPlanTheme.textSecondary)
                                 TextField("Search Sydney parks, beaches, 24/7 vets...", text: $searchText)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(PawPlanTheme.textPrimary)
                                 if !searchText.isEmpty {
                                     Button { searchText = "" } label: {
                                         Image(systemName: "xmark.circle.fill")
@@ -95,20 +95,22 @@ public struct ExploreView: View {
                     if isMapView {
                         // MapKit View with interactive pins
                         ZStack(alignment: .bottom) {
-                            Map(coordinateRegion: $region, annotationItems: places) { place in
-                                MapAnnotation(coordinate: place.coordinate) {
-                                    Button {
-                                        selectedPlace = place
-                                    } label: {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(hex: place.category.colorHex))
-                                                .frame(width: 32, height: 32)
-                                                .shadow(radius: 4)
+                            Map(initialPosition: .region(region)) {
+                                ForEach(places) { place in
+                                    Annotation(place.name, coordinate: place.coordinate) {
+                                        Button {
+                                            selectedPlace = place
+                                        } label: {
+                                            ZStack {
+                                                Circle()
+                                                    .fill(Color(hex: place.category.colorHex))
+                                                    .frame(width: 32, height: 32)
+                                                    .shadow(radius: 4)
 
-                                            Image(systemName: place.category.iconName)
-                                                .font(.system(size: 14, weight: .bold))
-                                                .foregroundColor(.white)
+                                                Image(systemName: place.category.iconName)
+                                                    .font(.system(size: 14, weight: .bold))
+                                                    .foregroundColor(.white)
+                                            }
                                         }
                                     }
                                 }
@@ -194,7 +196,7 @@ private struct SydneyPlaceCard: View {
                     VStack(alignment: .leading, spacing: 3) {
                         Text(place.name)
                             .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(PawPlanTheme.textPrimary)
                             .lineLimit(1)
 
                         Text("\(place.suburb) • \(place.council)")
@@ -288,7 +290,7 @@ public struct SydneyPlaceDetailSheet: View {
 
                             Text(place.name)
                                 .font(.system(size: 24, weight: .black, design: .rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
 
                             Text("\(place.address)")
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -301,7 +303,7 @@ public struct SydneyPlaceDetailSheet: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("About This Location")
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                             Text(place.description)
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
                                 .foregroundColor(PawPlanTheme.textSecondary)
@@ -316,7 +318,7 @@ public struct SydneyPlaceDetailSheet: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Council & Operational Rules")
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(PawPlanTheme.textPrimary)
                             Text(place.hoursOrNotes)
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
                                 .foregroundColor(PawPlanTheme.textSecondary)
@@ -354,7 +356,7 @@ public struct SydneyPlaceDetailSheet: View {
                                         Text("View Council Website")
                                             .font(.system(size: 15, weight: .bold, design: .rounded))
                                     }
-                                    .foregroundColor(.white)
+                                    .foregroundColor(PawPlanTheme.textPrimary)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 48)
                                     .background(RoundedRectangle(cornerRadius: 14).fill(PawPlanTheme.cardBackgroundElevated))

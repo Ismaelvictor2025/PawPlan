@@ -117,7 +117,7 @@ public struct ScheduleView: View {
                     .onDisappear { loadTasks() }
             }
             .onAppear { loadTasks() }
-            .onChange(of: container.activeDog) { _ in loadTasks() }
+            .onChange(of: container.activeDog) { loadTasks() }
         }
     }
 
