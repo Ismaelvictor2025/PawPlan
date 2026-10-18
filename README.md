@@ -161,6 +161,10 @@ The comprehensive PDF technical assessment report is generated at:
 
 ---
 
-## 8. AI Assistance Declaration
+### 8. Development and Quality Assurance
 
-This application was engineered by Vicky Neves Rohr in collaboration with Antigravity AI, utilizing pair-programming workflows for Clean Architecture scaffolding, test suite generation, and App Store asset preparation. All architectural decisions, domain models, and UI implementations were reviewed and verified through local compilation and automated test suites.
+PawPlan was developed using SwiftUI and a layered architecture incorporating domain use cases, repository abstractions and Core Data persistence.
+
+The development process included iterative implementation, debugging, automated unit and UI testing, accessibility improvements and verification against Apple Human Interface Guidelines.
+
+The project includes documented engineering decisions, test results and technical implementation details to support reproducibility and future maintenance.
