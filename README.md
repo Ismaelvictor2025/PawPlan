@@ -10,7 +10,7 @@ A production-quality native iOS application designed for first-time dog parents 
 - **Subtitle:** Sydney Dog Care & Routines
 - **Tagline:** *"Happy paws. Every day."*
 - **Primary Platform:** iOS 17.0+ (Universal iPhone, optimized for Super Retina XDR displays)
-- **Author:** Vicky Neves Rohr
+- **Author:** Vicky Neves Rohr, Alik Orgun
 - **Bundle Identifier:** `com.vicky.PawPlan`
 - **App Group Identifier:** `group.com.vicky.PawPlan`
 
